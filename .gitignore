@@ -102,3 +102,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+Game13/Game13-modify.py
