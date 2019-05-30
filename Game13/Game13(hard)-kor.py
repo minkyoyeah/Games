@@ -3,7 +3,7 @@ Function:
 	외계인 침공 게임
 Author:
 	Charles
-닉네임:
+微信公众号:
 	Charles의 피카츄
 '''
 import os
@@ -11,9 +11,7 @@ import sys
 import random
 import pygame
 from utils import *
-	
 
-	
 
 '''약간의 상량'''
 WIDTH = 800
@@ -23,9 +21,7 @@ BLACK = (0, 0, 0)
 GREEN = (50, 250, 5)
 RED = (255, 0, 0)
 FPS = 60
-	
 
-	
 
 '''
 Function:
@@ -72,7 +68,7 @@ def startGame(screen):
 	enemy_need_move_row = 6
 	enemy_max_row = 5
 	# 적의 탄알 발사를 통제하는데 사용
-	enemy_shot_interval = 100
+	enemy_shot_interval = 5
 	enemy_shot_count = 0
 	enemy_shot_flag = False
 	# 게임 진행 중
@@ -120,7 +116,7 @@ def startGame(screen):
 			enemy_need_move_row -= 1
 			if enemy_need_move_row == 0:
 				enemy_need_move_row = enemy_max_row
-				enemy_change_direction_count += 1
+			enemy_change_direction_count += 1
 			if enemy_change_direction_count > enemy_change_direction_interval:
 				enemy_change_direction_count = 1
 				enemy_move_right = not enemy_move_right
@@ -223,27 +219,22 @@ def startGame(screen):
 	with open('score', 'w') as f:
 		f.write(str(highest_score))
 	return is_win
-	
 
-	
 
-	'''메인 함수'''
-	def main():
-		# 초기화
-		pygame.init()
-		pygame.display.set_caption(u'닉네임-Charles의 피카츄')
-		screen = pygame.display.set_mode([WIDTH, HEIGHT])
-		pygame.mixer.init()
-		pygame.mixer.music.load('./music/bg.mp3')
-		pygame.mixer.music.set_volume(0.4)
-		pygame.mixer.music.play(-1)
-		while True:
-			is_win = startGame(screen)
-			endInterface(screen, BLACK, is_win)
-	
+'''메인 함수'''
+def main():
+	# 초기화
+	pygame.init()
+	pygame.display.set_caption(u'닉네임-Charles의 피카츄')
+	screen = pygame.display.set_mode([WIDTH, HEIGHT])
+	pygame.mixer.init()
+	pygame.mixer.music.load('./music/bg.mp3')
+	pygame.mixer.music.set_volume(0.4)
+	pygame.mixer.music.play(-1)
+	while True:
+		is_win = startGame(screen)
+		endInterface(screen, BLACK, is_win)
 
-	
 
-	if __name__ == '__main__':
-		main()
-
+if __name__ == '__main__':
+	main()
