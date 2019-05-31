@@ -3,7 +3,7 @@ Function:
 	외계인 침공 게임
 Author:
 	Charles
-닉네임:
+微信公众号:
 	Charles의 피카츄
 '''
 import os
@@ -11,11 +11,9 @@ import sys
 import random
 import pygame
 from utils import *
-	
 
-	
 
-'''사양'''
+'''약간의 상량'''
 WIDTH = 800
 HEIGHT = 600
 WHITE = (255, 255, 255)
@@ -23,9 +21,7 @@ BLACK = (0, 0, 0)
 GREEN = (50, 250, 5)
 RED = (255, 0, 0)
 FPS = 60
-	
 
-	
 
 '''
 Function:
@@ -33,7 +29,7 @@ Function:
 '''
 def startGame(screen):
 	clock = pygame.time.Clock()
-	# 추가 글꼴
+	# 글꼴 추가로 적재
 	font = pygame.font.SysFont('arial', 18)
 	if not os.path.isfile('score'):
 		f = open('score', 'w')
@@ -41,7 +37,7 @@ def startGame(screen):
 		f.close()
 	with open('score', 'r') as f:
 		highest_score = int(f.read().strip())
-	# 적팀
+	# 적측
 	enemies_group = pygame.sprite.Group()
 	for i in range(55):
 		if i < 11:
@@ -56,7 +52,7 @@ def startGame(screen):
 	boomed_enemies_group = pygame.sprite.Group()
 	en_bullets_group = pygame.sprite.Group()
 	ufo = ufoSprite(color=RED)
-	# 우리팀
+	# 우리측
 	myaircraft = aircraftSprite(color=GREEN, bullet_color=WHITE)
 	my_bullets_group = pygame.sprite.Group()
 	# 적의 위치 업데이트를 제어하는데 사용
@@ -95,7 +91,7 @@ def startGame(screen):
 				my_bullet = myaircraft.shot()
 				if my_bullet:
 					my_bullets_group.add(my_bullet)
-		# 우리팀 총알이 적/UFO와 충돌하여 감지
+		# 우리측 총알이 적/UFO와 충돌하여 감지
 		for enemy in enemies_group:
 			if pygame.sprite.spritecollide(enemy, my_bullets_group, True, None):
 				boomed_enemies_group.add(enemy)
@@ -104,7 +100,7 @@ def startGame(screen):
 		if pygame.sprite.spritecollide(ufo, my_bullets_group, True, None):
 			ufo.is_dead = True
 			myaircraft.score += ufo.reward
-		# 적팀 업데이트와 그리기
+		# 적측 업데이트와 그리기
 		# 	적의 총알
 		enemy_shot_count += 1
 		if enemy_shot_count > enemy_shot_interval:
@@ -120,7 +116,7 @@ def startGame(screen):
 			enemy_need_move_row -= 1
 			if enemy_need_move_row == 0:
 				enemy_need_move_row = enemy_max_row
-				enemy_change_direction_count += 1
+			enemy_change_direction_count += 1
 			if enemy_change_direction_count > enemy_change_direction_interval:
 				enemy_change_direction_count = 1
 				enemy_move_right = not enemy_move_right
@@ -156,7 +152,7 @@ def startGame(screen):
 			if boomed_enemy.boom(screen):
 				boomed_enemies_group.remove(boomed_enemy)
 				del boomed_enemy
-		# 적의 총알이 우리팀 비행선과 충돌하여 감지됨
+		# 적의 총탄이 우리측 비행선과 충돌하여 감지됨
 		if not myaircraft.one_dead:
 			if pygame.sprite.spritecollide(myaircraft, en_bullets_group, True, None):
 				myaircraft.one_dead = True
@@ -180,14 +176,14 @@ def startGame(screen):
 			ufo.update(WIDTH)
 			# UFO 그림
 			ufo.draw(screen)
-		# 우리팀 비행선 총알 그리기
+		# 우리측 비행선 총알 그리기
 		for bullet in my_bullets_group:
 			if bullet.update():
 				my_bullets_group.remove(bullet)
 				del bullet
 			else:
 				bullet.draw(screen)
-		# 적의 총알 그리기
+		# 적의 탄알 그리기
 		for bullet in en_bullets_group:
 			if bullet.update(HEIGHT):
 				en_bullets_group.remove(bullet)
@@ -223,27 +219,22 @@ def startGame(screen):
 	with open('score', 'w') as f:
 		f.write(str(highest_score))
 	return is_win
-	
 
-	
 
-	'''메인 함수'''
-	def main():
-		# 초기화
-		pygame.init()
-		pygame.display.set_caption(u'닉네임-Charles의 피카츄')
-		screen = pygame.display.set_mode([WIDTH, HEIGHT])
-		pygame.mixer.init()
-		pygame.mixer.music.load('./music/bg.mp3')
-		pygame.mixer.music.set_volume(0.4)
-		pygame.mixer.music.play(-1)
-		while True:
-			is_win = startGame(screen)
-			endInterface(screen, BLACK, is_win)
-	
+'''메인 함수'''
+def main():
+	# 초기화
+	pygame.init()
+	pygame.display.set_caption(u'닉네임-Charles의 피카츄')
+	screen = pygame.display.set_mode([WIDTH, HEIGHT])
+	pygame.mixer.init()
+	pygame.mixer.music.load('./music/bg.mp3')
+	pygame.mixer.music.set_volume(0.4)
+	pygame.mixer.music.play(-1)
+	while True:
+		is_win = startGame(screen)
+		endInterface(screen, BLACK, is_win)
 
-	
 
-	if __name__ == '__main__':
-		main()
-
+if __name__ == '__main__':
+	main()
