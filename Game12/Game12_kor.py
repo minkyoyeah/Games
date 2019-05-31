@@ -151,7 +151,7 @@ def runGame(screen, game_level):
     clock = pygame.time.Clock()
     game_interface = gameInterface(screen)
     game_interface.loadLevel(game_level)
-    font_path = os.path.join(Config.get('resources_path'), Config.get('fontfolder'), 'simkai.ttf')
+    font_path = os.path.join(Config.get('resources_path'), Config.get('fontfolder'), 'HANBaekM.ttf')
     text = 'R키를 눌러 다시 시작'
     font = pygame.font.Font(font_path, 15)
     text_render = font.render(text, 1, (255, 255, 255))
@@ -231,7 +231,7 @@ def BUTTON(screen, position, text):
     pygame.draw.line(screen, (50, 50, 50), (left, top+bheight), (left+bwidth, top+bheight), 5)
     pygame.draw.line(screen, (50, 50, 50), (left+bwidth, top+bheight), [left+bwidth, top], 5)
     pygame.draw.rect(screen, (100, 100, 100), (left, top, bwidth, bheight))
-    font_path = os.path.join(Config.get('resources_path'), Config.get('fontfolder'), 'simkai.ttf')
+    font_path = os.path.join(Config.get('resources_path'), Config.get('fontfolder'), 'HANBaekM.ttf')
     font = pygame.font.Font(font_path, 50)
     text_render = font.render(text, 1, (255, 0, 0))
     return screen.blit(text_render, (left+50, top+10))
@@ -286,7 +286,7 @@ def switchInterface(screen):
 def endInterface(screen):
     screen.fill(Config.get('bg_color'))
     clock = pygame.time.Clock()
-    font_path = os.path.join(Config.get('resources_path'), Config.get('fontfolder'), 'simkai.ttf')
+    font_path = os.path.join(Config.get('resources_path'), Config.get('fontfolder'), 'HANBaekM.ttf')
     text = '잘했습니다~ 통과를 축하해요!'
     font = pygame.font.Font(font_path, 30)
     text_render = font.render(text, 1, (255, 255, 255))
