@@ -87,10 +87,10 @@ def startGame(screen):
 					pygame.quit()
 					sys.exit()
 			# 사격
-			if event.type == pygame.MOUSEBUTTONDOWN:
-				my_bullet = myaircraft.shot()
-				if my_bullet:
-					my_bullets_group.add(my_bullet)
+			#if event.type == pygame.MOUSEBUTTONDOWN:
+			my_bullet = myaircraft.shot()
+			if my_bullet:
+				my_bullets_group.add(my_bullet)
 		# 우리측 총알이 적/UFO와 충돌하여 감지
 		for enemy in enemies_group:
 			if pygame.sprite.spritecollide(enemy, my_bullets_group, True, None):
